@@ -7,8 +7,7 @@ namespace FCS_ConsoleClient
     {
         public static void Main()
         {
-            IFileCacheConfiguration fileCacheConfiguration = new FileCacheConfiguration();
-            ICacheService cacheService = new FileCache(fileCacheConfiguration);
+            ICacheService cacheService = new FileCache();
         }
     }
 }
