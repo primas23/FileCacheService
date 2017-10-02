@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS.Contracts", "FCS.Contracts\FCS.Contracts.csproj", "{07896179-1561-48AF-A571-5737DF737062}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS,ConsoleClient", "FCS,ConsoleClient\FCS,ConsoleClient.csproj", "{AA7BCA1D-AC55-4C9D-BD67-6A30EC44388F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS.Core", "FCS.Core\FCS.Core.csproj", "{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07896179-1561-48AF-A571-5737DF737062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07896179-1561-48AF-A571-5737DF737062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07896179-1561-48AF-A571-5737DF737062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07896179-1561-48AF-A571-5737DF737062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7BCA1D-AC55-4C9D-BD67-6A30EC44388F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7BCA1D-AC55-4C9D-BD67-6A30EC44388F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7BCA1D-AC55-4C9D-BD67-6A30EC44388F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7BCA1D-AC55-4C9D-BD67-6A30EC44388F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
