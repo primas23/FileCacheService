@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.IO;
+using System.Text;
 using FCS.Contracts;
 
 namespace FCS.Core
@@ -8,9 +9,12 @@ namespace FCS.Core
     {
         private const string DefaultFileName = "cacheFileName";
         private const string DefaultFilePath = "cacheFilePath";
+        private const string FileExtension = ".cache";
 
         private string _fileName;
         private string _filePath;
+
+        private static object locker = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileCache"/> class.
@@ -59,9 +63,22 @@ namespace FCS.Core
         /// <summary>
         /// Clears the all the cache.
         /// </summary>
+        /// 
         public void Clear()
         {
             throw new NotImplementedException();
+        }
+
+        private void WriteToFile(StringBuilder text)
+        {
+            lock (locker)
+            {
+                using (FileStream file = new FileStream(string.Concat(this._filePath, this._fileName, FileExtension), FileMode.Append, FileAccess.Write, FileShare.Read))
+                using (StreamWriter writer = new StreamWriter(file, Encoding.Unicode))
+                {
+                    writer.Write(text.ToString());
+                }
+            }
         }
     }
 }
