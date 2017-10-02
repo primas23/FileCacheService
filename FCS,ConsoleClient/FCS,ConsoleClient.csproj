@@ -49,6 +49,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FCS.Contracts\FCS.Contracts.csproj">
+      <Project>{07896179-1561-48af-a571-5737df737062}</Project>
+      <Name>FCS.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FCS.Core\FCS.Core.csproj">
+      <Project>{2a9de0d4-e306-47c8-956b-ff3de03ac0e1}</Project>
+      <Name>FCS.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
