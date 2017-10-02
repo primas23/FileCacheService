@@ -48,6 +48,18 @@ namespace FCS.Core
         /// </returns>
         public T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds)
         {
+            T data = getDataFunc();
+
+            if (data != null)
+            {
+                //HttpRuntime.Cache.Insert(
+                //itemName,
+                //data,
+                //null,
+                //DateTime.UtcNow.AddSeconds(durationInSeconds),
+                //Cache.NoSlidingExpiration);
+            }
+
             throw new NotImplementedException();
         }
 
