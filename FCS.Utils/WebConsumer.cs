@@ -28,5 +28,17 @@ namespace FCS.Utils
 
             return posts;
         }
+
+        public string GetJsonPosts()
+        {            
+            string json = string.Empty;
+
+            using (WebClient webClien = new WebClient())
+            {
+                json = webClien.DownloadString(jsonUrlPosts);
+            }
+            
+            return json;
+        }
     }
 }

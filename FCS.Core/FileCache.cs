@@ -8,11 +8,9 @@ namespace FCS.Core
 {
     public class FileCache : ICacheService
     {
-        private const string DefaultFileName = "cacheFileName";
-        private const string DefaultFilePath = "cacheFilePath";
-        private const string FileExtension = ".cache";
+        private const string FileExtension = ".json";
 
-        private string _fileName;
+        private string _defaultFilePath = Directory.GetCurrentDirectory();
         private string _filePath;
 
         private static object locker = new object();
@@ -22,19 +20,16 @@ namespace FCS.Core
         /// </summary>
         public FileCache()
         {
-            this._fileName = DefaultFileName;
-            this._filePath = DefaultFilePath;
+            this._filePath = _defaultFilePath;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileCache"/> class.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
         /// <param name="filePath">The file path.</param>
-        public FileCache(string fileName, string filePath)
+        public FileCache(string filePath)
         {
-            this._fileName = string.IsNullOrWhiteSpace(fileName) ? DefaultFileName : fileName;
-            this._filePath = string.IsNullOrWhiteSpace(filePath) ? DefaultFilePath : filePath;
+            this._filePath = string.IsNullOrWhiteSpace(filePath) ? _defaultFilePath : filePath;
         }
 
         /// <summary>
@@ -49,16 +44,11 @@ namespace FCS.Core
         /// </returns>
         public T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds)
         {
-            T data = getDataFunc();
+            string fullPath = string.Concat(this._defaultFilePath, "\\", itemName, FileExtension);
 
-            if (data != null)
+            if (File.Exists(fullPath))
             {
-                //HttpRuntime.Cache.Insert(
-                //itemName,
-                //data,
-                //null,
-                //DateTime.UtcNow.AddSeconds(durationInSeconds),
-                //Cache.NoSlidingExpiration);
+
             }
 
             throw new NotImplementedException();
@@ -82,16 +72,32 @@ namespace FCS.Core
             throw new NotImplementedException();
         }
 
-        private void WriteToFile(StringBuilder text)
+        private void WriteToFile(StringBuilder text, string fileName)
         {
             lock (locker)
             {
-                using (FileStream file = new FileStream(string.Concat(this._filePath, this._fileName, FileExtension), FileMode.Append, FileAccess.Write, FileShare.Read))
+                using (FileStream file = new FileStream(string.Concat(this._filePath, fileName, FileExtension), FileMode.Append, FileAccess.Write, FileShare.Read))
                 using (StreamWriter writer = new StreamWriter(file, Encoding.Unicode))
                 {
                     writer.Write(text.ToString());
                 }
             }
+        }
+
+        private string ReadFromFile(string fileName)
+        {
+            string data;
+
+            lock (locker)
+            {
+                using (FileStream file = new FileStream(string.Concat(this._filePath, fileName, FileExtension), FileMode.Append, FileAccess.Write, FileShare.Read))
+                using (StreamReader reader = new StreamReader(file, Encoding.Unicode))
+                {
+                    data = reader.ReadToEnd();
+                }
+            }
+
+            return data;
         }
     }
 }

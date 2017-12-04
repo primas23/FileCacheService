@@ -14,7 +14,7 @@ namespace FCS_ConsoleClient
         {
             ICacheService cacheService = new FileCache();
             WebConsumer webConsumer = new WebConsumer();
-            
+
             IEnumerable<JsonTestModel> posts = webConsumer.GetPosts();
 
             string str = cacheService.Get("Test", () => webConsumer.GetJsonPosts(), 1000);
