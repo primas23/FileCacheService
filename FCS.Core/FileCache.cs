@@ -24,7 +24,6 @@ namespace FCS.Core
         public FileCache()
         {
             this._filePath = this._defaultFilePath;
-            this.CreatDirectoryIfNotExists();
         }
 
         /// <summary>
@@ -33,8 +32,7 @@ namespace FCS.Core
         /// <param name="filePath">The file path.</param>
         public FileCache(string filePath)
         {
-            this._filePath = string.IsNullOrWhiteSpace(filePath) ? _defaultFilePath : filePath;
-            this.CreatDirectoryIfNotExists();
+            this._filePath = string.IsNullOrWhiteSpace(filePath) ? _defaultFilePath : filePath;            
         }
 
         /// <summary>
@@ -133,6 +131,7 @@ namespace FCS.Core
         /// <returns>The parsed data.</returns>
         private T SaveDataToFile<T>(Func<T> getDataFunc, string fullPath)
         {
+            this.CreatDirectoryIfNotExists();
             T data = getDataFunc();
             string fileContent = JsonConvert.SerializeObject(data);
             this.WriteToFile(fullPath, fileContent);

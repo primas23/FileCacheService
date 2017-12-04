@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS.Utils", "FCS.Utils\FCS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS.ConsoleClient", "FCS.ConsoleClient\FCS.ConsoleClient.csproj", "{264BB6D6-AE28-4ABF-82CA-DE28786EE9D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCS.Tests", "FCS.Tests\FCS.Tests.csproj", "{60E95981-748F-4714-B5ED-9C14F393FCA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{264BB6D6-AE28-4ABF-82CA-DE28786EE9D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{264BB6D6-AE28-4ABF-82CA-DE28786EE9D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264BB6D6-AE28-4ABF-82CA-DE28786EE9D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60E95981-748F-4714-B5ED-9C14F393FCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60E95981-748F-4714-B5ED-9C14F393FCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60E95981-748F-4714-B5ED-9C14F393FCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60E95981-748F-4714-B5ED-9C14F393FCA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
