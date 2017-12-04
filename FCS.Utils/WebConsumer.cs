@@ -40,5 +40,28 @@ namespace FCS.Utils
             
             return json;
         }
+
+        public IEnumerable<JsonTestModel> GetMockedDataPosts()
+        {
+            IEnumerable<JsonTestModel> mockedData = new List<JsonTestModel>()
+            {
+                new JsonTestModel
+                {
+                    Id = 1,
+                    UserId = 1,
+                    Title = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                    Body = "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                },
+                new JsonTestModel
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Title = "qui est esse",
+                    Body = "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+                }
+            };
+
+            return mockedData;
+        }
     }
 }
