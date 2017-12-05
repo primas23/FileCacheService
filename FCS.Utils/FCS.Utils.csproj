@@ -44,10 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeProvider.cs" />
+    <Compile Include="DirectoryOperationsProvider.cs" />
+    <Compile Include="FileOperationsProvider.cs" />
+    <Compile Include="FileRead.cs" />
+    <Compile Include="FileWrite.cs" />
+    <Compile Include="JosnService.cs" />
     <Compile Include="WebConsumer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FCS.Contracts\FCS.Contracts.csproj">
+      <Project>{07896179-1561-48AF-A571-5737DF737062}</Project>
+      <Name>FCS.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FCS.Models\FCS.Models.csproj">
       <Project>{9FABEE64-DA69-40B8-A793-B1CE443E0134}</Project>
       <Name>FCS.Models</Name>

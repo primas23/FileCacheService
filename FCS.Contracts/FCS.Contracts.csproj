@@ -41,6 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICacheService.cs" />
+    <Compile Include="IDateTimeProvider.cs" />
+    <Compile Include="IDirectoryOperationsProvider.cs" />
+    <Compile Include="IFileOperationsProvider.cs" />
+    <Compile Include="IFileWrite.cs" />
+    <Compile Include="IFileRead.cs" />
+    <Compile Include="IJosnService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
