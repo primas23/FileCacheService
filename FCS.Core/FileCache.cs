@@ -105,7 +105,7 @@ namespace FCS.Core
             DateTime createdOn = this.GetCreatedDate(fullPath);
             DateTime dateTimeNow = this.GetDateTimeNow();
 
-            if (createdOn.AddSeconds(durationInSeconds) > dateTimeNow)
+            if (createdOn.AddSeconds(durationInSeconds) < dateTimeNow)
             {
                 isExpired = true;
             }

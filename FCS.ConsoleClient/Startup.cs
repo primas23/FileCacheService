@@ -15,7 +15,7 @@ namespace FCS_ConsoleClient
             ICacheService cacheService = new FileCache();
             WebConsumer webConsumer = new WebConsumer();
 
-            IEnumerable<JsonTestModel> posts = cacheService.Get("Test", () => webConsumer.GetMockedDataPosts(), 60);
+            IEnumerable<JsonTestModel> posts = cacheService.Get(DateTime.Now.ToString("yyyy-dd-M"), () => webConsumer.GetMockedDataPosts(), 1000000);
 
             Console.WriteLine();
         }
