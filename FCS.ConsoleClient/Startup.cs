@@ -5,6 +5,7 @@ using FCS.Contracts;
 using FCS.Core;
 using FCS.Models;
 using FCS.Utils;
+using FCS.Common;
 
 namespace FCS_ConsoleClient
 {
@@ -12,17 +13,20 @@ namespace FCS_ConsoleClient
     {
         public static void Main()
         {
-            ICacheService cacheService = new FileCache(
+            var cacheService = new FileCache(
                 new FileRead(),
-                new FileWrite(), 
+                new FileWrite(),
                 new DateTimeProvider(),
-                new JosnService(), 
+                new JosnService(),
                 new FileOperationsProvider(),
                 new DirectoryOperationsProvider());
 
-            WebConsumer webConsumer = new WebConsumer();
-
-            IEnumerable<JsonTestModel> posts = cacheService.Get(DateTime.Now.ToString("yyyy-dd-M"), () => webConsumer.GetMockedDataPosts(), 1000000);
+            using (var cacheManager = new CacheManager("IndexPDTs", cacheService))
+            {
+                var webConsumer = new WebConsumer();
+                var post1 = cacheService.Get("id" + "_" + 1.ToString(), () => webConsumer.GetMockedDataPosts(1), GlobalConstants.OneWeekInSeconds);
+                var post2 = cacheService.Get("id" + "_" + 2.ToString(), () => webConsumer.GetMockedDataPosts(2), GlobalConstants.OneWeekInSeconds);
+            }
 
             Console.WriteLine();
         }

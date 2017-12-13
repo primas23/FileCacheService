@@ -35,6 +35,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,10 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheManager.cs" />
     <Compile Include="FileCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FCS.Common\FCS.Common.csproj">
+      <Project>{f94b8ff3-adec-43d3-ac32-fbf15800a91c}</Project>
+      <Name>FCS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FCS.Contracts\FCS.Contracts.csproj">
       <Project>{07896179-1561-48af-a571-5737df737062}</Project>
       <Name>FCS.Contracts</Name>

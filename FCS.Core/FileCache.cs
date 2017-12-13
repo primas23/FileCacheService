@@ -1,14 +1,12 @@
 ﻿using System;
 
 using FCS.Contracts;
+using FCS.Common;
 
 namespace FCS.Core
 {
     public class FileCache : ICacheService
     {
-        private const string FileExtension = ".json";
-        private const string FileCacheDirectoryName = "FileCache";
-
         private string _filePath;
 
         private static object locker = new object();
@@ -20,7 +18,7 @@ namespace FCS.Core
         private readonly IFileOperationsProvider fileOperationsProvider;
         private readonly IDirectoryOperationsProvider directoryOperationsProvider;
 
-        public FileCache(IFileRead fileRead, 
+        public FileCache(IFileRead fileRead,
             IFileWrite fileWrite,
             IDateTimeProvider dateTimeProvider,
             IJosnService josnService,
@@ -34,8 +32,8 @@ namespace FCS.Core
             this.fileOperationsProvider = fileOperationsProvider;
             this.directoryOperationsProvider = directoryOperationsProvider;
             this._filePath = this.directoryOperationsProvider.GetCurrentDirectory();
-        }        
-        
+        }
+
         /// <summary>
         /// Gets the value of the specified item name if exists or inserts it in the cache.
         /// </summary>
@@ -87,7 +85,7 @@ namespace FCS.Core
         /// Clears the all the cache.
         /// </summary>        
         public void Clear()
-        {            
+        {
             directoryOperationsProvider.Delete(this.GetDirectoryLocation());
         }
 
@@ -159,7 +157,7 @@ namespace FCS.Core
         /// </summary>
         /// <param name="fullPath">The full path.</param>
         private void DeleteFile(string fullPath)
-        {            
+        {
             this.fileOperationsProvider.DeleteFile(fullPath);
         }
 
@@ -173,7 +171,7 @@ namespace FCS.Core
         private T SaveDataToFile<T>(Func<T> getDataFunc, string fullPath)
         {
             this.CreatDirectoryIfNotExists();
-            T data = getDataFunc();            
+            T data = getDataFunc();
             string fileContent = this.josnService.SerializeObject(data);
             this.WriteToFile(fullPath, fileContent);
 
@@ -195,7 +193,7 @@ namespace FCS.Core
         /// <param name="fullPath">The full path.</param>
         /// <returns>The created datetime of the file.</returns>
         private DateTime GetCreatedDate(string fullPath)
-        {            
+        {
             return this.fileOperationsProvider.GetCreationTime(fullPath);
         }
 
@@ -209,7 +207,7 @@ namespace FCS.Core
             bool isExisting = false;
 
             if (this.directoryOperationsProvider.Exists(this.GetDirectoryLocation()))
-            {                
+            {
                 isExisting = this.fileOperationsProvider.Exists(fullPath);
             }
 
@@ -223,7 +221,7 @@ namespace FCS.Core
         /// <returns>The full path.</returns>
         private string GetFullPath(string itemName)
         {
-            return string.Concat(this.GetDirectoryLocation(), "\\", itemName, FileExtension);
+            return string.Concat(this.GetDirectoryLocation(), "\\", itemName, GlobalConstants.JsonFileExtension);
         }
 
         /// <summary>
@@ -232,7 +230,7 @@ namespace FCS.Core
         /// <returns>Returns the path to the file directory</returns>
         private string GetDirectoryLocation()
         {
-            return string.Concat(this._filePath, "\\", FileCacheDirectoryName);
+            return string.Concat(this._filePath, "\\", GlobalConstants.FileCacheDirectoryName);
         }
     }
 }

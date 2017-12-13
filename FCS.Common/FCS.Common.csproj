@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{264BB6D6-AE28-4ABF-82CA-DE28786EE9D4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>FCS.ConsoleClient</RootNamespace>
-    <AssemblyName>FCS.ConsoleClient</AssemblyName>
+    <ProjectGuid>{F94B8FF3-ADEC-43D3-AC32-FBF15800A91C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FCS.Common</RootNamespace>
+    <AssemblyName>FCS.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,33 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Startup.cs" />
+    <Compile Include="GlobalConstants.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FCS.Common\FCS.Common.csproj">
-      <Project>{F94B8FF3-ADEC-43D3-AC32-FBF15800A91C}</Project>
-      <Name>FCS.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Contracts\FCS.Contracts.csproj">
-      <Project>{07896179-1561-48AF-A571-5737DF737062}</Project>
-      <Name>FCS.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Core\FCS.Core.csproj">
-      <Project>{2A9DE0D4-E306-47C8-956B-FF3DE03AC0E1}</Project>
-      <Name>FCS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Models\FCS.Models.csproj">
-      <Project>{9FABEE64-DA69-40B8-A793-B1CE443E0134}</Project>
-      <Name>FCS.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Utils\FCS.Utils.csproj">
-      <Project>{BC850620-455F-4401-BD8E-EB82134D2CCA}</Project>
-      <Name>FCS.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

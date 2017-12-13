@@ -4,13 +4,14 @@ using System.Net;
 using Newtonsoft.Json;
 
 using FCS.Models;
+using System.Linq;
 
 namespace FCS.Utils
 {
     public class WebConsumer
     {
         private readonly string jsonUrlPosts = "https://jsonplaceholder.typicode.com/posts";
-        
+
         public IEnumerable<JsonTestModel> GetPosts()
         {
             IEnumerable<JsonTestModel> posts = new List<JsonTestModel>();
@@ -30,18 +31,18 @@ namespace FCS.Utils
         }
 
         public string GetJsonPosts()
-        {            
+        {
             string json = string.Empty;
 
             using (WebClient webClien = new WebClient())
             {
                 json = webClien.DownloadString(jsonUrlPosts);
             }
-            
+
             return json;
         }
 
-        public IEnumerable<JsonTestModel> GetMockedDataPosts()
+        public JsonTestModel GetMockedDataPosts(int id)
         {
             IEnumerable<JsonTestModel> mockedData = new List<JsonTestModel>()
             {
@@ -61,7 +62,7 @@ namespace FCS.Utils
                 }
             };
 
-            return mockedData;
+            return mockedData.FirstOrDefault(md => md.Id == id);
         }
     }
 }

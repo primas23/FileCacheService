@@ -17,7 +17,7 @@ namespace FCS.Utils
             using (FileStream file = new FileStream(fullPath, FileMode.Append, FileAccess.Write, FileShare.Read))
             using (StreamWriter writer = new StreamWriter(file, Encoding.Unicode))
             {
-                writer.Write(text);
+                writer.WriteAsync(text);
             }
         }
     }
