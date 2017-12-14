@@ -18,16 +18,14 @@ namespace FCS_ConsoleClient
                 new FileOperationsProvider(),
                 new DirectoryOperationsProvider());
 
-            var cacheManager = new CacheManager(cacheService, new DirectoryOperationsProvider()));
-            cacheManager.ScopeName = "IndexPDTs";
+            using (var cacheManager = new CacheManager("IndexPDTs2", cacheService))
+            {
+                var webConsumer = new WebConsumer();
 
-            var webConsumer = new WebConsumer();
+                var post1 = cacheManager.Get("id" + "_" + 1.ToString(), () => webConsumer.GetMockedDataPosts(1), GlobalConstants.OneWeekInSeconds);
+                var post2 = cacheManager.Get("id" + "_" + 2.ToString(), () => webConsumer.GetMockedDataPosts(2), GlobalConstants.OneWeekInSeconds);
+            }
 
-            var post1 = cacheManager.Get("id" + "_" + 1.ToString(), () => webConsumer.GetMockedDataPosts(1), GlobalConstants.OneWeekInSeconds);
-            var post2 = cacheManager.Get("id" + "_" + 2.ToString(), () => webConsumer.GetMockedDataPosts(2), GlobalConstants.OneWeekInSeconds);
-
-
-            cacheManager.Dispose();
             Console.WriteLine();
         }
     }

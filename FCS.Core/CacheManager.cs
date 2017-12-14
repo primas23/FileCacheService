@@ -14,36 +14,33 @@ namespace FCS.Core
         private const byte backupDataLimit = 3;
         private const string ZipFileExtension = ".zip";
 
-        private readonly ICacheService _cacheService;
-        private readonly IDirectoryOperationsProvider _directoryOperationsProvider;
-        
-        private string _scopeName;
+        private readonly ICacheService cacheService;
+        private readonly string uniqueNameOfDirectory;
 
-        public CacheManager(ICacheService cacheService, IDirectoryOperationsProvider directoryOperationsProvider)
-        {   
-            this._cacheService = cacheService;
-            this._directoryOperationsProvider = directoryOperationsProvider;
-        }
+        private string scopeName;
 
         /// <summary>
-        /// Name of the scope in which the indexing should save the files.
+        /// Initializes a new instance of the <see cref="CacheManager"/> class.
         /// </summary>
-        /// <value>
-        /// The name of the scope.
-        /// </value>
-        public string ScopeName
+        /// <param name="scopeName">Name of the scope in which the indexing should save the files.</param>
+        /// <param name="cacheService">The cache service.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public CacheManager(string scopeName, ICacheService cacheService)
         {
-            get
+            if (string.IsNullOrWhiteSpace(scopeName))
             {
-                return this._scopeName;
+                throw new ArgumentNullException(string.Concat($"{nameof(scopeName)}", GlobalConstants.ExceptionMessageShouldNotBeNull));
             }
 
-            set
-            {
-                this._scopeName = value;
-            }
+            this.scopeName = scopeName;
+
+            string sortableData = GetNameForDirectory();
+
+            this.uniqueNameOfDirectory = string.Concat(this.scopeName, "_", sortableData);
+
+            this.cacheService = cacheService;
         }
-        
+
         /// <summary>
         /// Gets the value of the specified item name if exists or inserts it in the cache.
         /// </summary>
@@ -56,12 +53,9 @@ namespace FCS.Core
         /// </returns>
         public T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds)
         {
-            var dirName = this.GetNameOfDirectory();
-            this.CreatDirectoryIfNotExists(dirName);
+            string name = string.Concat(this.uniqueNameOfDirectory, "\\", itemName);
 
-            var name = string.Concat(dirName, "\\", itemName);
-
-            return this._cacheService.Get(name, getDataFunc, durationInSeconds);
+            return this.cacheService.Get(name, getDataFunc, durationInSeconds);
         }
 
         public void Dispose()
@@ -69,7 +63,7 @@ namespace FCS.Core
             try
             {
                 Logger.Info("Start archiving...");
-                string currentDirectory = this.GetDirectoryLocation();
+                string currentDirectory = GetDirectoryLocation();
 
                 this.DisposeDirectory(currentDirectory);
                 this.DisposeZipFiles(currentDirectory);
@@ -80,26 +74,6 @@ namespace FCS.Core
             {
                 Logger.Error(ex);
                 throw;
-            }
-        }
-
-        private string GetNameOfDirectory()
-        {            
-            var sortableData = this.GetSortedNameForDirectory();            
-            var nameOfDirectory = string.Concat(this._scopeName, "_", sortableData);
-
-            return nameOfDirectory;
-        }
-
-        /// <summary>
-        /// Creats the directory if not exists.
-        /// </summary>
-        /// <param name="uniqueNameOfDirectory">The unique name of directory.</param>
-        private void CreatDirectoryIfNotExists(string uniqueNameOfDirectory)
-        {
-            if (!this._directoryOperationsProvider.Exists(uniqueNameOfDirectory))
-            {
-                this._directoryOperationsProvider.CreateDirectory(uniqueNameOfDirectory);
             }
         }
 
@@ -193,7 +167,7 @@ namespace FCS.Core
         {
             var entyties = Directory
                 .GetDirectories(currentDirectory)
-                .Where(d => d.Contains(this._scopeName))
+                .Where(d => d.Contains(this.scopeName))
                 .OrderBy(fn => fn)
                 .ToList();
 
@@ -204,7 +178,7 @@ namespace FCS.Core
         {
             var entyties = Directory
                 .GetFiles(currentDirectory)
-                .Where(d => d.Contains(this._scopeName))
+                .Where(d => d.Contains(this.scopeName))
                 .Where(d => d.Contains(ZipFileExtension))
                 .OrderBy(fn => fn)
                 .ToList();
@@ -212,12 +186,12 @@ namespace FCS.Core
             return entyties;
         }
 
-        private string GetDirectoryLocation()
+        private static string GetDirectoryLocation()
         {
             return Directory.GetCurrentDirectory();
         }
 
-        private string GetSortedNameForDirectory()
+        private static string GetNameForDirectory()
         {
             return string.Concat(GlobalConstants.ReindexStart.Year.ToString(),
                             GlobalConstants.ReindexStart.Month.ToString("00"),
