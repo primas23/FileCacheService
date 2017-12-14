@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-using FCS.Contracts;
 using FCS.Core;
-using FCS.Models;
 using FCS.Utils;
 using FCS.Common;
 
@@ -21,13 +18,16 @@ namespace FCS_ConsoleClient
                 new FileOperationsProvider(),
                 new DirectoryOperationsProvider());
 
-            using (var cacheManager = new CacheManager("IndexPDTs", cacheService))
-            {
-                var webConsumer = new WebConsumer();
-                var post1 = cacheService.Get("id" + "_" + 1.ToString(), () => webConsumer.GetMockedDataPosts(1), GlobalConstants.OneWeekInSeconds);
-                var post2 = cacheService.Get("id" + "_" + 2.ToString(), () => webConsumer.GetMockedDataPosts(2), GlobalConstants.OneWeekInSeconds);
-            }
+            var cacheManager = new CacheManager(cacheService, new DirectoryOperationsProvider()));
+            cacheManager.ScopeName = "IndexPDTs";
 
+            var webConsumer = new WebConsumer();
+
+            var post1 = cacheManager.Get("id" + "_" + 1.ToString(), () => webConsumer.GetMockedDataPosts(1), GlobalConstants.OneWeekInSeconds);
+            var post2 = cacheManager.Get("id" + "_" + 2.ToString(), () => webConsumer.GetMockedDataPosts(2), GlobalConstants.OneWeekInSeconds);
+
+
+            cacheManager.Dispose();
             Console.WriteLine();
         }
     }
