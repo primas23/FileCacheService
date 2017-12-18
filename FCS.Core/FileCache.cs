@@ -9,7 +9,7 @@ namespace FCS.Core
     public class FileCache : ICacheService
     {
         private const string ScopePattern = @"([A-Z])\w+";
-
+        private const string FileSystemDivider = "\\";
         private string _pathToDirectory;
 
         private static object locker = new object();
@@ -120,7 +120,7 @@ namespace FCS.Core
 
         private bool IsDirectoryProvided(string itemName)
         {
-            return itemName.Contains("\\");
+            return itemName.Contains(FileSystemDivider);
         }
 
         private void WriteToFile(string fullPath, string text)
@@ -142,7 +142,7 @@ namespace FCS.Core
 
             return data;
         }
-        
+
         private bool CheckIfExpired(string fullPath, int durationInSeconds)
         {
             bool isExpired = false;
@@ -197,7 +197,7 @@ namespace FCS.Core
 
         private string GetDirectoryLocation()
         {
-            return string.Concat(this._pathToDirectory, "\\", GlobalConstants.FileCacheDirectoryName);
+            return string.Concat(this._pathToDirectory, FileSystemDivider, GlobalConstants.FileCacheDirectoryName);
         }
     }
 }
